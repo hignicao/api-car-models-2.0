@@ -5,16 +5,10 @@ dotenv.config();
 
 const { Pool } = pkg;
 
-const user = "postgres";
-const password = "2486";
-const host = "localhost";
-const port = 5432;
-const database = "car-models";
-
 export const connectionDB = new Pool({
-	user,
-  password,
-  host,
-  port,
-  database,
+	user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_DATABASE,
 });
