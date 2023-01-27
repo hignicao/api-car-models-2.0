@@ -1,4 +1,4 @@
-import { getRacerById, getRacersByNumber, postRacer, updateNumber } from "../repositories/racers-repository.js";
+import { getRacerById, getRacersByNumber, getRaces, postRacer, updateNumber, updateRaces } from "../repositories/racers-repository.js";
 import { racerSchema } from "../schemas/racer-schema.js";
 import { Racer } from "../utils/protocols";
 
@@ -42,12 +42,22 @@ async function findRacer(id: number) {
 	}
 }
 
+async function updateRacerRaces(id: number) {
+	try {
+		const { races } = await getRaces(id)
+		await updateRaces(id, races);
+	} catch (error) {
+		throw new Error("Erro ao atualizar número de corridas do corredor");
+	}
+}
+
 const racerService = {
 	validadeRacerNumber,
 	validadeRacerBody,
 	registerRacer,
 	updateRacerNumber,
 	findRacer,
+	updateRacerRaces,
 };
 
 export default racerService;

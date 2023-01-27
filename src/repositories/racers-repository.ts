@@ -31,3 +31,21 @@ export function updateNumber(id: number, number: number) {
 		where: { id },
 	});
 }
+
+export function getRaces(id: number) {
+	return prisma.racer.findFirst({
+		where: { id },
+		select: {
+			races: true,
+		}
+	})
+}
+
+export function updateRaces(id: number, races: number) {
+	return prisma.racer.update({
+		data: {
+			races: races + 1,
+		},
+		where: { id },
+	})
+}

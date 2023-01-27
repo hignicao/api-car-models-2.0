@@ -12,6 +12,7 @@ export async function newCircuit(req: Request, res: Response) {
 		await racerService.findRacer(circuit.racer_id);
     await carService.findCar(circuit.car_id);
 		await circuitService.postNewCircuit(circuit);
+		await racerService.updateRacerRaces(circuit.racer_id);
 		res.sendStatus(201);
 	} catch (error) {
 		res.status(400).send(error.message);
