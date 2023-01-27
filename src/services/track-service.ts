@@ -1,8 +1,8 @@
 import { getTrackById, rankingByTrack } from "../repositories/tracks-repository.js";
 
-async function getRankingByTrack(track: string) {
+async function getRankingByTrack(track: number) {
   const trackExists = await getTrackById(track);
-  if (trackExists.rowCount === 0) {
+  if (!trackExists) {
     throw new Error("Pista não encontrada");
   }
 

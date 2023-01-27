@@ -19,7 +19,7 @@ async function validateCircuitBody(circuit: Circuit) {
 	}
 }
 
-async function deleteCircuitById(id: string) {
+async function deleteCircuitById(id: number) {
 	try {
 		await deleteCircuit(id);
 	} catch (error) {

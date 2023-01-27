@@ -13,12 +13,13 @@ async function validadeRacerBody(racer: Racer) {
 
 async function validadeRacerNumber(racerNumber: number) {
 	const racerExists = await getRacersByNumber(racerNumber);
-	if (racerExists.rowCount > 0) {
+	if (racerExists) {
 		throw new Error("Número de corredor já cadastrado");
 	}
 }
 
 async function registerRacer(racer: Racer) {
+	console.log("oiii")
 	try {
 		await postRacer(racer);
 	} catch (error) {
@@ -26,26 +27,26 @@ async function registerRacer(racer: Racer) {
 	}
 }
 
-async function updateRacerNumber(id: string, number: number) {
-  try {
-    await updateNumber(id, number);
-  } catch (error) {
-    throw new Error("Erro ao atualizar número do corredor");
-  }
+async function updateRacerNumber(id: number, number: number) {
+	try {
+		await updateNumber(id, number);
+	} catch (error) {
+		throw new Error("Erro ao atualizar número do corredor");
+	}
 }
 
 async function findRacer(id: number) {
-	const racerExists = await getRacerById(id)
-  if (racerExists.rowCount === 0) {
-    throw new Error("Piloto não encontrado");
-  }
+	const racerExists = await getRacerById(id);
+	if (!racerExists) {
+		throw new Error("Piloto não encontrado");
+	}
 }
 
 const racerService = {
 	validadeRacerNumber,
 	validadeRacerBody,
 	registerRacer,
-  updateRacerNumber,
+	updateRacerNumber,
 	findRacer,
 };
 

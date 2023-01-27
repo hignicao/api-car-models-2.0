@@ -5,8 +5,8 @@ export type Racer = {
 };
 
 export type Circuit = {
-	track: number;
-	racer: number;
-	car: number;
-	time: number;
+	track_id: number;
+	racer_id: number;
+	car_id: number;
+	time_lap: number;
 };
