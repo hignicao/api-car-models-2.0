@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model car {
+  id       Int        @id(map: "car_pk") @default(autoincrement())
+  model    String
+  year     Int
+  color    String
+  engine   String
+  hp       Int
+  circuits circuits[]
+}
+
+model circuits {
+  id       Int   @id(map: "circuits_pk") @default(autoincrement())
+  racer_id Int
+  car_id   Int
+  track_id Int
+  time_lap Int
+  racer    racer @relation(fields: [racer_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "circuits_fk0")
+  car      car   @relation(fields: [car_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "circuits_fk1")
+  track    track @relation(fields: [track_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "circuits_fk2")
+}
+
+model racer {
+  id       Int        @id(map: "racer_pk") @default(autoincrement())
+  name     String
+  birth    DateTime   @db.Date
+  number   Int        @unique
+  races    Int?       @default(0)
+  circuits circuits[]
+}
+
+model track {
+  id       Int        @id(map: "track_pk") @default(autoincrement())
+  name     String     @unique
+  circuits circuits[]
+}
